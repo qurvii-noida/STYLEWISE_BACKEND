@@ -1,0 +1,27 @@
+{
+  "name": "stylewise-backend",
+  "version": "1.0.0",
+  "description": "a backend system which is contains all cataloging related info",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": [
+    "cataloging",
+    "nodejs",
+    "discount",
+    "generator"
+  ],
+  "author": "sachin rawat",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.18.0",
+    "mongoose": "^8.17.1",
+    "nodemon": "^3.1.10"
+  }
+}
