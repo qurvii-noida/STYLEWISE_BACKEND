@@ -20,7 +20,7 @@ const StyleLog = require("../../modals/styleLog/styleLog.modal");
 const getStyleList = async (req, res, next) => {
     try {
         // query params se page aur limit nikalna
-        let { page = 1, limit = 100 } = req.query;
+        let { page = 1, limit = 100, sortOrder = "desc" } = req.query;
 
         page = parseInt(page);
         limit = parseInt(limit);
@@ -31,8 +31,12 @@ const getStyleList = async (req, res, next) => {
         // total count
         const total = await QurviiStyle.countDocuments();
 
-        // styles fetch with pagination
+        // sorting order decide karna
+        const sortDirection = sortOrder === "desc" ? -1 : 1;
+
+        // styles fetch with pagination + sorting
         const regularStyleList = await QurviiStyle.find()
+            .sort({ styleNumber: sortDirection })
             .skip(skip)
             .limit(limit);
 
@@ -55,6 +59,7 @@ const getStyleList = async (req, res, next) => {
         next(error);
     }
 };
+
 
 
 
@@ -251,4 +256,5 @@ const createQurviiStyles = async (req, res, next) => {
 
 
 module.exports = { getStyleList, getSingleStyle, updateQurviiStyle, createQurviiStyles, getAllRegularStyles, uploadAndGetStyles }
+
 
