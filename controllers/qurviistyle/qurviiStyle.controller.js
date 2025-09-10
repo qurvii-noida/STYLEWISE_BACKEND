@@ -62,7 +62,11 @@ const getStyleList = async (req, res, next) => {
 
 const getAllRegularStyles = async (req, res, next) => {
     try {
-        const styles = await QurviiStyle.find();
+         const styles = await QurviiStyle.aggregate([
+            {
+                $sort: { styleNumber: -1 }
+            }
+        ]);
         if (!styles) {
             next(new ApiError(404, "Styles not found"));
         }
@@ -247,3 +251,4 @@ const createQurviiStyles = async (req, res, next) => {
 
 
 module.exports = { getStyleList, getSingleStyle, updateQurviiStyle, createQurviiStyles, getAllRegularStyles, uploadAndGetStyles }
+
