@@ -10,6 +10,7 @@ const coordsStyleRoutes = require("./routes/cords/coords.routes");
 const relistStyleRoutes = require("./routes/relist/relist.routes");
 const regularStyleRoutes = require("./routes/qurviiStyle/qurviiStyle.routes");
 const styleLogRoutes = require("./routes/styleLog/styleLog.routes.js");
+const alterStyleRoutes = require("./routes/alterStyle/alterStyle.routes.js");
 const PORT = process.env.PORT || 5000;
 
 // middlewares 
@@ -25,6 +26,9 @@ app.use("/api/v1/stylewise/relist", relistStyleRoutes);
 app.use("/api/v1/stylewise/regular-style", regularStyleRoutes);
 app.use("/api/v1/stylewise", styleLogRoutes);
 
+
+// *************** alter styls routes ***************
+app.use("/api/v1/alter-style", alterStyleRoutes);
 
 // Global Error Handler 
 app.use(globalErrorHandler);

@@ -17,6 +17,45 @@ const StyleLog = require("../../modals/styleLog/styleLog.modal");
 //         next(error);
 //     }
 // }
+// const getStyleList = async (req, res, next) => {
+//     try {
+//         // query params se page aur limit nikalna
+//         let { page = 1, limit = 100 } = req.query;
+
+//         page = parseInt(page);
+//         limit = parseInt(limit);
+
+//         // skip calculate karna
+//         const skip = (page - 1) * limit;
+
+//         // total count
+//         const total = await QurviiStyle.countDocuments();
+
+//         // styles fetch with pagination
+//         const regularStyleList = await QurviiStyle.find()
+//             .skip(skip)
+//             .limit(limit);
+
+//         if (!regularStyleList || regularStyleList.length === 0) {
+//             return next(new ApiError(404, "Styles not found."));
+//         }
+
+//         res.status(200).json(
+//             new ApiResponse(200, "Styles fetched successfully", {
+//                 styles: regularStyleList,
+//                 pagination: {
+//                     totalRecords: total,
+//                     totalPages: Math.ceil(total / limit),
+//                     currentPage: page,
+//                     pageSize: limit,
+//                 }
+//             })
+//         );
+//     } catch (error) {
+//         next(error);
+//     }
+// };
+
 const getStyleList = async (req, res, next) => {
     try {
         // query params se page aur limit nikalna
@@ -62,16 +101,17 @@ const getStyleList = async (req, res, next) => {
 
 
 
-
 // ***************** get all styles without pagination **************************
 
 const getAllRegularStyles = async (req, res, next) => {
     try {
-         const styles = await QurviiStyle.aggregate([
+        // const styles = await QurviiStyle.find();
+        const styles = await QurviiStyle.aggregate([
             {
                 $sort: { styleNumber: -1 }
             }
         ]);
+
         if (!styles) {
             next(new ApiError(404, "Styles not found"));
         }
@@ -256,5 +296,3 @@ const createQurviiStyles = async (req, res, next) => {
 
 
 module.exports = { getStyleList, getSingleStyle, updateQurviiStyle, createQurviiStyles, getAllRegularStyles, uploadAndGetStyles }
-
-
